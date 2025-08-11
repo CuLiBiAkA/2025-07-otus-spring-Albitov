@@ -8,8 +8,14 @@ public class TestRunnerServiceImpl implements TestRunnerService {
 
     private final TestService testService;
 
+    private final IOService ioService;
+
     @Override
     public void run() {
-        testService.executeTest();
+        try {
+            testService.executeTest();
+        } catch (Exception ex) {
+            ioService.printLine("An unforeseen mistake occurred. We are already working on this.");
+        }
     }
 }

@@ -6,7 +6,7 @@ import ru.otus.hw.dao.QuestionDao;
 @RequiredArgsConstructor
 public class TestServiceImpl implements TestService {
 
-    public static final String D_S = "%d. %s";
+    private static final String ANSWER_OPTION_FORMAT = "%d. %s";
 
     private final IOService ioService;
 
@@ -24,7 +24,7 @@ public class TestServiceImpl implements TestService {
             var answers = question.answers();
 
             for (int i = 0; i < answers.size(); i++) {
-                ioService.printFormattedLine(D_S, i + 1, answers.get(i).text());
+                ioService.printFormattedLine(ANSWER_OPTION_FORMAT, i + 1, answers.get(i).text());
             }
 
             ioService.printLine("");

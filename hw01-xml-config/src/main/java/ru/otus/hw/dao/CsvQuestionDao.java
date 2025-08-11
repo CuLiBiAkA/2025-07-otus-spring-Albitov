@@ -25,10 +25,7 @@ public class CsvQuestionDao implements QuestionDao {
             var dtos = getQuestionDtos(reader);
 
             return dtos.stream()
-                    .map(dto -> new Question(
-                            dto.getText(),
-                            dto.getAnswers().stream().toList()
-                    ))
+                    .map(QuestionDto::toDomainObject)
                     .toList();
 
         } catch (Exception e) {
