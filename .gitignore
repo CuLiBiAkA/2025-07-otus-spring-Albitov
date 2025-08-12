@@ -1,0 +1,48 @@
+# Java
+*.class
+*.log
+
+# Maven
+/target/
+/out/
+/dependency-reduced-pom.xml
+/.mvn/wrapper/maven-wrapper.jar
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# VS Code (если кто-то откроет проект там)
+.vscode/
+
+# OS/system files
+.DS_Store
+Thumbs.db
+
+# Test reports
+/test-output/
+/surefire-reports/
+
+# Generated files
+*.swp
+*.bak
+*.tmp
+
+# Lombok config cache
+lombok.config.cache
+
+# Local env files
+.env
+*.local
+
+# Coverage tools
+/.coverage
+/coverage/
+/jacoco.exec
+
+# Checkstyle/PMD/SpotBugs
+/checkstyle-result.xml
+/pmd.xml
+/spotbugs.xml
