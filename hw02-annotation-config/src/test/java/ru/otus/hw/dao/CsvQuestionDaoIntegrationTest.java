@@ -9,7 +9,7 @@ import static org.mockito.Mockito.when;
 
 class CsvQuestionDaoIntegrationTest {
 
-    private final TestFileNameProvider fileNameProvider = mock();
+    private final TestFileNameProvider fileNameProvider = mock(TestFileNameProvider.class);
 
     @Test
     void shouldReadQuestionsFromClasspathCsv() {
