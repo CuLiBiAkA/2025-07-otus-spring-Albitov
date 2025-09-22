@@ -1,7 +1,6 @@
 package ru.otus.hw.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,7 +22,7 @@ public class TestRunnerServiceImpl implements TestRunnerService {
             var testResult = testService.executeTestFor(student);
             resultService.showResult(testResult);
         } catch (Exception ex) {
-            ioService.printLine("An unforeseen mistake occurred. We are already working on this.");
+            ioService.printFormattedLineLocalized("TestRunnerService.run.catch");
         }
     }
 }
