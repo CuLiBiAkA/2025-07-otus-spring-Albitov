@@ -1,0 +1,16 @@
+${AnsiBackground.BLACK}                                                                 ${AnsiBackground.DEFAULT}
+${AnsiBackground.BLACK}          ___                         ___           ___          ${AnsiBackground.DEFAULT}
+${AnsiBackground.BLACK}         /  /\          ___          /  /\         /  /\         ${AnsiBackground.DEFAULT}
+${AnsiBackground.BLACK}        /  /::\        /__/\        /  /:/        /  /::\        ${AnsiBackground.DEFAULT}
+${AnsiBackground.BLACK}       /  /:/\:\       \  \:\      /  /:/        /__/:/\:\       ${AnsiBackground.DEFAULT}
+${AnsiBackground.BLACK}      /  /:/  \:\       \__\:\    /  /:/        _\_ \:\ \:\      ${AnsiBackground.DEFAULT}
+${AnsiBackground.BLACK}     /__/:/ \__\:\      /  /::\  /__/:/     /\ /__/\ \:\ \:\     ${AnsiBackground.DEFAULT}
+${AnsiBackground.BLACK}     \  \:\ /  /:/     /  /:/\:\ \  \:\    /:/ \  \:\ \:\_\/     ${AnsiBackground.DEFAULT}
+${AnsiBackground.BLACK}      \  \:\  /:/     /  /:/__\/  \  \:\  /:/   \  \:\_\:\       ${AnsiBackground.DEFAULT}
+${AnsiBackground.BLACK}       \  \:\/:/     /__/:/        \  \:\/:/     \  \:\/:/       ${AnsiBackground.DEFAULT}
+${AnsiBackground.BLACK}        \  \::/      \__\/          \  \::/       \  \::/        ${AnsiBackground.DEFAULT}
+${AnsiBackground.BLACK}         \__\/                       \__\/         \__\/         ${AnsiBackground.DEFAULT}
+${AnsiBackground.DEFAULT}
+${AnsiColor.CYAN}Locale: ${test.locale}${AnsiColor.DEFAULT}
+${AnsiColor.YELLOW}Spring Boot: ${spring-boot.version}${AnsiColor.DEFAULT}
+${AnsiColor.GREEN}${AnsiStyle.BOLD}>>> Готово! <<<${AnsiColor.DEFAULT}
