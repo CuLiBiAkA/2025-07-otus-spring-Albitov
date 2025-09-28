@@ -1,4 +1,7 @@
 spring:
+  shell:
+    interactive:
+      enabled: true
   main:
     banner-mode: console
     output:
@@ -16,3 +19,4 @@ test:
   fileNameByLocaleTag:
     ru-RU: questions_ru.csv
     en-US: questions.csv
+
