@@ -4,9 +4,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import ru.otus.hw.dao.QuestionDao;
 import ru.otus.hw.domain.Answer;
 import ru.otus.hw.domain.Question;
@@ -18,23 +18,23 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-@DisplayName("Тест сервиса TestServiceImpl")
+@SpringBootTest(classes = {TestServiceImpl.class})
+@DisplayName("TestServiceImpl с контекстом Spring Boot")
 class TestServiceImplTest {
 
-    @Mock
+    @Autowired
+    private TestServiceImpl testService;
+
+    @MockBean
     private LocalizedIOService ioService;
 
-    @Mock
+    @MockBean
     private QuestionDao questionDao;
-
-    @InjectMocks
-    private TestServiceImpl testService;
 
     private Student student;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
         student = new Student("Иван", "Иванов");
     }
 
@@ -52,15 +52,12 @@ class TestServiceImplTest {
         ));
 
         when(questionDao.findAll()).thenReturn(List.of(q1, q2));
-
         when(ioService.readIntForRangeWithPromptLocalized(anyInt(), anyInt(), anyString(), anyString()))
                 .thenReturn(2, 1);
 
         TestResult result = testService.executeTestFor(student);
 
         assertThat(result.getRightAnswersCount()).isEqualTo(2);
-        assertThat(result.getRightAnswersCount()).isEqualTo(2);
-
         verify(ioService, atLeastOnce()).printFormattedLineLocalized("TestService.answer.the.questions");
         verify(questionDao, times(1)).findAll();
     }
@@ -72,14 +69,15 @@ class TestServiceImplTest {
                 new Answer("3", false),
                 new Answer("4", true)
         ));
-        when(questionDao.findAll()).thenReturn(List.of(q1));
 
+        when(questionDao.findAll()).thenReturn(List.of(q1));
         when(ioService.readIntForRangeWithPromptLocalized(anyInt(), anyInt(), anyString(), anyString()))
                 .thenReturn(1);
 
         TestResult result = testService.executeTestFor(student);
 
-        assertThat(result.getRightAnswersCount()).isEqualTo(0);
+        assertThat(result.getRightAnswersCount()).isZero();
+        verify(questionDao, times(1)).findAll();
     }
 
     @Test
