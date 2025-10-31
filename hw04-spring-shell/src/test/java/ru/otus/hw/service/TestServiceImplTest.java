@@ -1,10 +1,12 @@
 package ru.otus.hw.service;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.MockitoAnnotations;
 import ru.otus.hw.dao.QuestionDao;
 import ru.otus.hw.domain.Answer;
 import ru.otus.hw.domain.Question;
@@ -16,33 +18,85 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-@ExtendWith(MockitoExtension.class)
+@DisplayName("Тест сервиса TestServiceImpl")
 class TestServiceImplTest {
 
     @Mock
-    private LocalizedIOService io;
+    private LocalizedIOService ioService;
 
     @Mock
-    private QuestionDao dao;
+    private QuestionDao questionDao;
 
     @InjectMocks
     private TestServiceImpl testService;
 
+    private Student student;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+        student = new Student("Иван", "Иванов");
+    }
+
     @Test
-    void shouldAskAllQuestionsAndReturnResult() {
-        when(dao.findAll()).thenReturn(List.of(
-                new Question("Q1", List.of(new Answer("A1", false), new Answer("A2", true))),
-                new Question("Q2", List.of(new Answer("B1", true)))
+    @DisplayName("должен корректно пройти тест, если студент выбирает правильные ответы")
+    void shouldReturnCorrectResultWhenAllAnswersRight() {
+        // given
+        var q1 = new Question("2+2=?", List.of(
+                new Answer("3", false),
+                new Answer("4", true)
+        ));
+        var q2 = new Question("Столица Франции?", List.of(
+                new Answer("Париж", true),
+                new Answer("Берлин", false)
         ));
 
-        when(io.readIntForRangeWithPromptLocalized(anyInt(), anyInt(), anyString(), anyString()))
-                .thenReturn(1);
+        when(questionDao.findAll()).thenReturn(List.of(q1, q2));
 
-
-        var student = new Student("Ivan", "Petrov");
+        when(ioService.readIntForRangeWithPromptLocalized(anyInt(), anyInt(), anyString(), anyString()))
+                .thenReturn(2, 1);
 
         TestResult result = testService.executeTestFor(student);
 
-        assertThat(result.getAnsweredQuestions()).hasSize(2);
+        assertThat(result.getRightAnswersCount()).isEqualTo(2);
+        assertThat(result.getRightAnswersCount()).isEqualTo(2);
+
+        verify(ioService, atLeastOnce()).printFormattedLineLocalized("TestService.answer.the.questions");
+        verify(questionDao, times(1)).findAll();
+    }
+
+    @Test
+    @DisplayName("должен корректно обработать неправильные ответы")
+    void shouldReturnResultWithWrongAnswers() {
+        var q1 = new Question("2+2=?", List.of(
+                new Answer("3", false),
+                new Answer("4", true)
+        ));
+        when(questionDao.findAll()).thenReturn(List.of(q1));
+
+        when(ioService.readIntForRangeWithPromptLocalized(anyInt(), anyInt(), anyString(), anyString()))
+                .thenReturn(1);
+
+        TestResult result = testService.executeTestFor(student);
+
+        assertThat(result.getRightAnswersCount()).isEqualTo(0);
+    }
+
+    @Test
+    @DisplayName("должен выводить вопросы и варианты ответов в консоль")
+    void shouldPrintQuestionsAndAnswers() {
+        var q = new Question("Что такое Spring?", List.of(
+                new Answer("Фреймворк", true),
+                new Answer("Цветок", false)
+        ));
+        when(questionDao.findAll()).thenReturn(List.of(q));
+        when(ioService.readIntForRangeWithPromptLocalized(anyInt(), anyInt(), anyString(), anyString()))
+                .thenReturn(1);
+
+        testService.executeTestFor(student);
+
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+        verify(ioService, atLeastOnce()).printLine(captor.capture());
+        assertThat(captor.getAllValues()).contains("Что такое Spring?");
     }
 }
