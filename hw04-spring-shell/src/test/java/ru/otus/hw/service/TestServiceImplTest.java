@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import ru.otus.hw.dao.QuestionDao;
 import ru.otus.hw.domain.Answer;
 import ru.otus.hw.domain.Question;
@@ -22,14 +22,14 @@ import static org.mockito.Mockito.*;
 @DisplayName("TestServiceImpl с контекстом Spring Boot")
 class TestServiceImplTest {
 
-    @Autowired
-    private TestServiceImpl testService;
-
-    @MockBean
+    @MockitoBean
     private LocalizedIOService ioService;
 
-    @MockBean
+    @MockitoBean
     private QuestionDao questionDao;
+
+    @Autowired
+    private TestServiceImpl testService;
 
     private Student student;
 
