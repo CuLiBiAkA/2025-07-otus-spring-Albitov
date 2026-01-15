@@ -10,3 +10,7 @@ databaseChangeLog:
   - include:
       file: data/test-author-genre-data.yml
       relativeToChangelogFile: true
+
+  - include:
+      file: 3.0/test-comment.yml
+      relativeToChangelogFile: true
