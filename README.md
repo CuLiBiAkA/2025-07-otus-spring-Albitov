@@ -6,3 +6,4 @@ hw03-spring-boot\
 hw04-spring-shell\
 hw05-jdbc-simple\
 hw06-jpa\
+hw07-spring-data\
