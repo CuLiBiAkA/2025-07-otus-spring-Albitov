@@ -35,8 +35,6 @@ class JpaBookRepositoryTest {
 
         var b = book.get();
         assertThat(b.getTitle()).isEqualTo("BookTitle_1" );
-
-        // LAZY не должен падать
         assertThat(b.getAuthor().getFullName()).isEqualTo("Author_1" );
         assertThat(b.getGenre().getName()).isEqualTo("Genre_1" );
     }
