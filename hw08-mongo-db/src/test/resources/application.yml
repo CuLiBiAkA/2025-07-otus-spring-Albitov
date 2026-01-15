@@ -1,0 +1,18 @@
+spring:
+  data:
+    mongodb:
+      port: 0
+      database: testdb
+
+  shell:
+    interactive:
+      enabled: false
+    command:
+      version:
+        enabled: false
+
+de:
+  flapdoodle:
+    mongodb:
+      embedded:
+        version: 4.4.18

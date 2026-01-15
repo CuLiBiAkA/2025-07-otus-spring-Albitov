@@ -4,3 +4,7 @@ hw01-xml-config\
 hw02-annotation-config\
 hw03-spring-boot\
 hw04-spring-shell\
+hw05-jdbc-simple\
+hw06-jpa\
+hw07-spring-data\
+hw08-mongo-db\

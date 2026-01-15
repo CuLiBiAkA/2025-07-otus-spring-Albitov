@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2026-01-05--0001-author-data
+      author: hw6
+      context: data
+      runOnChange: true
+      loadData:
+        tableName: authors
+        file: data/2026-01-05--0001-authors.csv
+        relativeToChangelogFile: true
+        separator: ;
+        quoteChar: '"'
+        encoding: UTF-8
+  - changeSet:
+      id: 2026-01-05--0002-genre-data
+      author: hw6
+      context: data
+      runOnChange: true
+      loadData:
+        tableName: genres
+        file: data/2026-01-05--0002-genres.csv
+        relativeToChangelogFile: true
+        separator: ;
+        quoteChar: '"'
+        encoding: UTF-8
+  - changeSet:
+      id: 2026-01-05--0002-book-data
+      author: hw6
+      context: data
+      runOnChange: true
+      loadData:
+        tableName: books
+        file: data/2026-01-05--0001-books.csv
+        relativeToChangelogFile: true
+        separator: ;
+        quoteChar: '"'
+        encoding: UTF-8

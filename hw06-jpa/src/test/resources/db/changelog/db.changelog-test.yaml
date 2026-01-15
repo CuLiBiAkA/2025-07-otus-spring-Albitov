@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - include:
+      file: 1.0/test-author-genre.yml
+      relativeToChangelogFile: true
+
+  - include:
+      file: 2.0/test-book.yml
+      relativeToChangelogFile: true
+
+  - include:
+      file: data/test-author-genre-data.yml
+      relativeToChangelogFile: true
+
+  - include:
+      file: 3.0/test-comment.yml
+      relativeToChangelogFile: true
