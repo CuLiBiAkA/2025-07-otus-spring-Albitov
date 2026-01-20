@@ -1,11 +1,6 @@
 spring:
   datasource:
     url: jdbc:h2:mem:maindb
-  sql:
-    init:
-      mode: NEVER
-      data-locations: data.sql
-      schema-locations: schema.sql
   shell:
     interactive:
       enabled: true
