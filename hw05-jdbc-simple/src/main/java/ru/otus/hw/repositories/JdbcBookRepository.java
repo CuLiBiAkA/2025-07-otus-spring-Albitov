@@ -23,26 +23,25 @@ public class JdbcBookRepository implements BookRepository {
 
     private static final BookRowMapper BOOK_ROW_MAPPER = new BookRowMapper();
 
-    private static final String BASE_SELECT = """
-            SELECT
-                b.id            AS book_id,
-                b.title         AS book_title,
-                a.id            AS author_id,
-                a.full_name     AS author_name,
-                g.id            AS genre_id,
-                g.name          AS genre_name
-            FROM books b
-            LEFT JOIN authors a ON a.id = b.author_id
-            LEFT JOIN genres  g ON g.id = b.genre_id
-            """;
-
     private final NamedParameterJdbcOperations jdbcOperations;
 
     @Override
     public Optional<Book> findById(long id) {
         try {
             return jdbcOperations.query(
-                    BASE_SELECT + " WHERE b.id = :id",
+                    """
+                            SELECT
+                                b.id            AS book_id,
+                                b.title         AS book_title,
+                                a.id            AS author_id,
+                                a.full_name     AS author_name,
+                                g.id            AS genre_id,
+                                g.name          AS genre_name
+                            FROM books b
+                            LEFT JOIN authors a ON a.id = b.author_id
+                            LEFT JOIN genres  g ON g.id = b.genre_id
+                            """
+                            + " WHERE b.id = :id",
                     Map.of("id", id),
                     BOOK_ROW_MAPPER
             ).stream().findFirst();
@@ -53,7 +52,20 @@ public class JdbcBookRepository implements BookRepository {
 
     @Override
     public List<Book> findAll() {
-        return jdbcOperations.query(BASE_SELECT, BOOK_ROW_MAPPER);
+        return jdbcOperations.query(
+                """
+                        SELECT
+                            b.id            AS book_id,
+                            b.title         AS book_title,
+                            a.id            AS author_id,
+                            a.full_name     AS author_name,
+                            g.id            AS genre_id,
+                            g.name          AS genre_name
+                        FROM books b
+                        LEFT JOIN authors a ON a.id = b.author_id
+                        LEFT JOIN genres  g ON g.id = b.genre_id
+                        """,
+                BOOK_ROW_MAPPER);
     }
 
     @Override
